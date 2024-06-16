@@ -12,7 +12,7 @@ export default function Home() {
   const handleClick = (
     pet: string
   ) => {
-    alert("pet chosen as "+pet);
+    petChosen(pet);
   };
   return (
     <>
