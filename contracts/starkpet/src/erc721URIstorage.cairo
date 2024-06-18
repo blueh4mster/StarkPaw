@@ -1,8 +1,8 @@
-// SPDX-License-Identifier: MIT
-// Compatible with OpenZeppelin Contracts for Cairo ^0.13.0
+
+use starknet::ContractAddress;
 
 #[starknet::contract]
-mod erc721 {
+mod erc721URIstorage {
     use openzeppelin::access::ownable::OwnableComponent;
     use openzeppelin::introspection::src5::SRC5Component;
     use openzeppelin::token::erc721::ERC721Component;
@@ -29,6 +29,7 @@ mod erc721 {
         src5: SRC5Component::Storage,
         #[substorage(v0)]
         ownable: OwnableComponent::Storage,
+        tokenURIs: LegacyMap<u256,ByteArray>
     }
 
     #[event]
@@ -43,33 +44,26 @@ mod erc721 {
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState, owner: ContractAddress) {
-        self.erc721.initializer("MyToken", "MTK", "");
+    fn constructor(ref self: ContractState, owner: ContractAddress,name:ByteArray, symbol:ByteArray) {
+        self.erc721.initializer("MyToken", "MTK","");
         self.ownable.initializer(owner);
     }
-
-    #[generate_trait]
-    #[abi(per_item)]
-    impl ExternalImpl of ExternalTrait {
-        #[external(v0)]
-        fn safe_mint(
-            ref self: ContractState,
-            recipient: ContractAddress,
-            token_id: u256,
-            data: Span<felt252>,
-        ) {
-            self.ownable.assert_only_owner();
-            self.erc721._safe_mint(recipient, token_id, data);
-        }
-
-        #[external(v0)]
-        fn safeMint(
-            ref self: ContractState,
-            recipient: ContractAddress,
-            tokenId: u256,
-            data: Span<felt252>,
-        ) {
-            self.safe_mint(recipient, tokenId, data);
-        }
+    #[abi(embed_v0)]
+    fn _name(self:ContractState)->ByteArray{
+        self.erc721.name()
     }
+    fn _symbol(self:ContractState)->ByteArray{
+        self.erc721.symbol()
+    }
+    fn _mint(
+        ref self: ContractState,
+        recipient: ContractAddress,
+        tokenId: u256,
+    ) {
+        self.erc721.mint(recipient, tokenId);
+    }
+    fn _setTokenURI(ref self: ContractState, tokenId: u256, tokenURI: ByteArray){
+        self.tokenURIs.write(tokenId, tokenURI);
+    }
+    
 }
