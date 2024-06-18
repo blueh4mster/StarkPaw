@@ -1,8 +1,8 @@
-"use client";
 import {
   DynamicContextProvider,
   DynamicWidget,
 } from "@dynamic-labs/sdk-react-core";
+import Head from "next/head";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import PetCard from "../components/PetCard";
 import { petChosen } from "@/services/petCard";
@@ -19,6 +19,11 @@ export default function Home() {
   ];
   return (
     <>
+      <Head>
+        <title>StarkPaw</title>
+        <meta content="decentralized dynamic NFT pets" name="StarkPaw" />
+        <link href="/favicon.ico" rel="icon" />
+      </Head>
       <Sidebar links={links} />
       <div className="mainContent">
         <DynamicContextProvider

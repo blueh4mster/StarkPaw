@@ -1,14 +1,12 @@
-"use client";
 import {
   DynamicContextProvider,
   DynamicWidget,
 } from "@dynamic-labs/sdk-react-core";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-import { petChosen } from "@/services/petCard";
 import Sidebar from "@/components/Sidebar";
 import PetNft from "@/components/PetNft";
 
-export default function Home() {
+export default function petgallery() {
   const links = [
     { href: "/", label: "Home" },
     { href: "/petgallery", label: "Pet Gallery" },

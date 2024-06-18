@@ -15,7 +15,7 @@ const PetNft = ({
   const handlePet = () => {};
   return (
     <div className={styles.card}>
-      <a href={url}>nftAddr</a>
+      <a href={url}>{nftAddr}</a>
       <Button onClick={handleFood}>feed {tracker}</Button>
       <Button onClick={handlePet}>pet {tracker}</Button>
       <Button onClick={handleSleep}>Put {tracker} to sleep</Button>
