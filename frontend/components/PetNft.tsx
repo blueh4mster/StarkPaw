@@ -1,7 +1,7 @@
 import styles from "./PetNft.module.css";
 import { Button } from "@chakra-ui/react";
 
-const PetCard = ({
+const PetNft = ({
   nftAddr,
   tracker,
   url,
@@ -23,4 +23,4 @@ const PetCard = ({
   );
 };
 
-export default PetCard;
+export default PetNft;
