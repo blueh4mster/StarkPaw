@@ -11,7 +11,7 @@ pub trait IERC721URIstorage<TContractState> {
 
 #[starknet::interface]
 pub trait IManager<TContractState> {
-    fn get_nfts(ref self: TContractState)->Array<ContractAddress>;
+    fn get_nfts(ref self: TContractState)->ContractAddress;
     fn mint_nft(ref self: TContractState, num:u256,address: ContractAddress);
     fn setTokenURI(ref self: TContractState, address:ContractAddress, num:u256, tokenURI:ByteArray,tokenId:u256);
 }
@@ -25,7 +25,7 @@ pub mod Manager{
     struct Storage{
         //hadcode 3 token addresses of dog, cat and bunny
         token_addresses: LegacyMap<u256,IERC721URIstorageDispatcher>,
-        user_nft: LegacyMap<ContractAddress,Array<ContractAddress>>,
+        user_nft: LegacyMap<ContractAddress,ContractAddress>,// vectors are not inbuilt we need to implement them
 
     }
 
@@ -35,7 +35,7 @@ pub mod Manager{
     }
     #[abi(embed_v0)]
     impl Manager of super::IManager<ContractState>{
-        fn get_nfts(ref self: ContractState)->Array<ContractAddress>{
+        fn get_nfts(ref self: ContractState)->ContractAddress{
             let caller= get_caller_address();
             return self.user_nft.read(caller);
         }
