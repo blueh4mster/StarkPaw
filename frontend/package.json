@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
     "@dynamic-labs/ethereum": "^2.1.5",
     "@dynamic-labs/sdk-react-core": "^2.1.5",
     "@rainbow-me/rainbowkit": "^2.1.2",

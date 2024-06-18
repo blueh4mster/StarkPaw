@@ -1,17 +1,12 @@
-"use client";
 import {
   DynamicContextProvider,
   DynamicWidget,
 } from "@dynamic-labs/sdk-react-core";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
-import PetCard from "../components/PetCard";
-import { petChosen } from "@/services/petCard";
 import Sidebar from "@/components/Sidebar";
+import PetNft from "@/components/PetNft";
 
-export default function Home() {
-  const handleClick = (pet: string) => {
-    petChosen(pet);
-  };
+export default function petgallery() {
   const links = [
     { href: "/", label: "Home" },
     { href: "/petgallery", label: "Pet Gallery" },
@@ -30,27 +25,19 @@ export default function Home() {
         >
           <DynamicWidget />
         </DynamicContextProvider>
-        <h1 className="titl">Choose Your Pet!</h1>
+        <h1 className="titl">Your Pet Nfts!</h1>
 
         <div style={{ display: "flex", gap: "16px" }}></div>
         <div className="cardContainer">
-          <PetCard
-            imageSrc="images/dog.png"
-            title="dog"
-            description="cute pet likes hoomans"
-            onClick={(e) => handleClick("dog")}
+          <PetNft
+            nftAddr="0x456..."
+            tracker="cat"
+            url="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721"
           />
-          <PetCard
-            imageSrc="images/cat.jpg"
-            title="cat"
-            description="cute pet hates hoomans"
-            onClick={(e) => handleClick("cat")}
-          />
-          <PetCard
-            imageSrc="images/bunny.jpg"
-            title="bunny"
-            description="cute pet likes carats(carrots)"
-            onClick={(e) => handleClick("bunny")}
+          <PetNft
+            nftAddr="0x123..."
+            tracker="dog"
+            url="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721"
           />
         </div>
       </div>

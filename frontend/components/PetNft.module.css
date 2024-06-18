@@ -1,0 +1,14 @@
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  max-width: 300px; /* Add a max-width to the card to limit its size */
+  margin: 0 auto;
+  flex: 1 0 200px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
