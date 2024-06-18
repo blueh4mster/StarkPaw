@@ -8,5 +8,11 @@
 
 .titl{
     text-align: center;
-    color: #404eca;
+    color: #60589a;
+}
+
+.mainContent {
+  margin-left: 282px; /* Same as sidebar width */
+  padding: 0px;
+  flex: 1;
 }
