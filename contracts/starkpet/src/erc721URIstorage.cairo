@@ -1,35 +1,26 @@
-
 use starknet::ContractAddress;
 
 #[starknet::contract]
 mod erc721URIstorage {
-    use openzeppelin::access::ownable::OwnableComponent;
+    use starknet::ContractAddress;
     use openzeppelin::introspection::src5::SRC5Component;
     use openzeppelin::token::erc721::ERC721Component;
     use openzeppelin::token::erc721::ERC721HooksEmptyImpl;
-    use starknet::ContractAddress;
 
     component!(path: ERC721Component, storage: erc721, event: ERC721Event);
     component!(path: SRC5Component, storage: src5, event: SRC5Event);
-    component!(path: OwnableComponent, storage: ownable, event: OwnableEvent);
 
     #[abi(embed_v0)]
     impl ERC721MixinImpl = ERC721Component::ERC721MixinImpl<ContractState>;
-    #[abi(embed_v0)]
-    impl OwnableMixinImpl = OwnableComponent::OwnableMixinImpl<ContractState>;
-
     impl ERC721InternalImpl = ERC721Component::InternalImpl<ContractState>;
-    impl OwnableInternalImpl = OwnableComponent::InternalImpl<ContractState>;
 
     #[storage]
     struct Storage {
+        tokenURIs: LegacyMap<u256,ByteArray>,
         #[substorage(v0)]
         erc721: ERC721Component::Storage,
         #[substorage(v0)]
         src5: SRC5Component::Storage,
-        #[substorage(v0)]
-        ownable: OwnableComponent::Storage,
-        tokenURIs: LegacyMap<u256,ByteArray>
     }
 
     #[event]
@@ -39,14 +30,12 @@ mod erc721URIstorage {
         ERC721Event: ERC721Component::Event,
         #[flat]
         SRC5Event: SRC5Component::Event,
-        #[flat]
-        OwnableEvent: OwnableComponent::Event,
-    }
 
+    }
+    // ,name:ByteArray, symbol:ByteArray
     #[constructor]
-    fn constructor(ref self: ContractState, owner: ContractAddress,name:ByteArray, symbol:ByteArray) {
-        self.erc721.initializer("MyToken", "MTK","");
-        self.ownable.initializer(owner);
+    fn constructor(ref self: ContractState) {
+        self.erc721.initializer("dog", "DOG","");
     }
     #[abi(embed_v0)]
     fn _name(self:ContractState)->ByteArray{
