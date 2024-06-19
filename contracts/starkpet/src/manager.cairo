@@ -25,8 +25,7 @@ pub mod Manager{
     struct Storage{
         //hadcode 3 token addresses of dog, cat and bunny
         token_addresses: LegacyMap<u256,IERC721URIstorageDispatcher>,
-        user_nft: LegacyMap<ContractAddress,ContractAddress>,// vectors are not inbuilt we need to implement them
-
+        user_nft: LegacyMap<ContractAddress,ContractAddress>,
     }
 
     #[constructor]
