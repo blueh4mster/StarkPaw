@@ -1,11 +1,3 @@
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from "@chakra-ui/react";
-import { error } from "console";
-
 export const petChosen = async (petName: string) => {
   let message: string = "pet chosen! as " + petName;
   alert(message);

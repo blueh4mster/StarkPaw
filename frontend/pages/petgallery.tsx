@@ -5,13 +5,33 @@ import {
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import Sidebar from "@/components/Sidebar";
 import PetNft from "@/components/PetNft";
+import { fetchPets } from "@/services/gallery";
+import { useState } from "react";
+import { useEffect } from "react";
 
+interface petsI {
+  nftAddr: string;
+  tracker: string;
+  uri: string;
+}
 export default function petgallery() {
+  const [pets, setPets] = useState(Array<petsI>);
   const links = [
     { href: "/", label: "Home" },
     { href: "/petgallery", label: "Pet Gallery" },
     { href: "/contact", label: "Contact" },
   ];
+
+  useEffect(() => {
+    const getfolders = async () => {
+      const p = await fetchPets();
+      setPets(p);
+    };
+    
+    getfolders();
+
+  }, []);
+
   return (
     <>
       <Sidebar links={links} />
@@ -28,18 +48,20 @@ export default function petgallery() {
         <h1 className="titl">Your Pet Nfts!</h1>
 
         <div style={{ display: "flex", gap: "16px" }}></div>
-        <div className="cardContainer">
-          <PetNft
-            nftAddr="0x456..."
-            tracker="cat"
-            url="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721"
-          />
-          <PetNft
-            nftAddr="0x123..."
-            tracker="dog"
-            url="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721"
-          />
-        </div>
+        {pets !== null &&
+          pets.map((pet, i) => (
+            <PetNft nftAddr={pet.nftAddr} tracker={pet.tracker} url={pet.uri} />
+          ))}
+        <PetNft
+          nftAddr="0x456..."
+          tracker="cat"
+          url="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721"
+        />
+        <PetNft
+          nftAddr="0x123..."
+          tracker="dog"
+          url="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721"
+        />
       </div>
     </>
   );

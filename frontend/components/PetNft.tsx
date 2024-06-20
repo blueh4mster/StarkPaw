@@ -10,15 +10,29 @@ const PetNft = ({
   tracker: string;
   url: string;
 }) => {
-  const handleFood = () => {};
-  const handleSleep = () => {};
-  const handlePet = () => {};
+  const handleFood = () => {
+    // update nft by calling backend function
+  };
+  const handleSleep = () => {
+    // update nft by calling backend function
+  };
+  const handlePet = () => {
+    // don't do anything 
+  };
   return (
     <div className={styles.card}>
       <a href={url}>{nftAddr}</a>
-      <Button onClick={handleFood}>feed {tracker}</Button>
-      <Button onClick={handlePet}>pet {tracker}</Button>
-      <Button onClick={handleSleep}>Put {tracker} to sleep</Button>
+      <div className={styles.actions}>
+        <Button onClick={handleFood} className={styles.actionButtons}>
+          feed {tracker}
+        </Button>
+        <Button onClick={handlePet} className={styles.actionButtons}>
+          pet {tracker}
+        </Button>
+        <Button onClick={handleSleep} className={styles.actionButtons}>
+          Put {tracker} to sleep
+        </Button>
+      </div>
     </div>
   );
 };
