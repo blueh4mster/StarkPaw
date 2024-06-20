@@ -15,7 +15,7 @@ pub trait IERC<TContractState> {
 }
 #[starknet::contract]
 mod ERC{
-    use starkpet::exp::IERC;
+    use starkpet::erc::IERC;
     use starknet::ContractAddress;
     use openzeppelin::introspection::src5::SRC5Component;
     use openzeppelin::token::erc721::ERC721Component;
