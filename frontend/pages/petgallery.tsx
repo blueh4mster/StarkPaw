@@ -3,6 +3,7 @@ import {
   DynamicWidget,
 } from "@dynamic-labs/sdk-react-core";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
+import { StarknetWalletConnectors } from "@dynamic-labs/starknet";
 import Sidebar from "@/components/Sidebar";
 import PetNft from "@/components/PetNft";
 import { fetchPets } from "@/services/gallery";
@@ -23,13 +24,11 @@ export default function petgallery() {
   ];
 
   useEffect(() => {
-    const getfolders = async () => {
+    const handleFetch = async () => {
       const p = await fetchPets();
       setPets(p);
     };
-    
-    getfolders();
-
+    handleFetch();
   }, []);
 
   return (
@@ -52,7 +51,7 @@ export default function petgallery() {
           pets.map((pet, i) => (
             <PetNft nftAddr={pet.nftAddr} tracker={pet.tracker} url={pet.uri} />
           ))}
-        <PetNft
+        {/* <PetNft
           nftAddr="0x456..."
           tracker="cat"
           url="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721"
@@ -61,7 +60,7 @@ export default function petgallery() {
           nftAddr="0x123..."
           tracker="dog"
           url="https://docs.openzeppelin.com/contracts/4.x/api/token/erc721"
-        />
+        /> */}
       </div>
     </>
   );

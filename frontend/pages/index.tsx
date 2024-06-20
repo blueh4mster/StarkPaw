@@ -31,10 +31,7 @@ export default function Home() {
           theme={"dark"}
           settings={{
             environmentId: "4ab7a405-d8b1-4fe7-97bd-7c6ead2e8f66",
-            walletConnectors: [
-              EthereumWalletConnectors,
-              StarknetWalletConnectors,
-            ],
+            walletConnectors: [EthereumWalletConnectors],
           }}
         >
           <DynamicWidget />
