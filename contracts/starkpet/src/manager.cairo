@@ -13,54 +13,86 @@ pub trait IERC<TContractState> {
 #[starknet::interface]
 pub trait IManager<TContractState> {
     // fn register_user(ref self:TContractState);// the cllaer's address will be registered
-    fn get_nfts(self: @TContractState)->ContractAddress;
-    fn mint_nft(ref self: TContractState, num:u256,address: ContractAddress);
-    fn setTokenURI(ref self: TContractState, address:ContractAddress,tokenURI:felt252,tokenId:u256)->bool;
+    fn get_nfts(self: @TContractState)->Array<(ContractAddress,u256)>;
+    fn mint_nft(ref self: TContractState, num:u256,address: ContractAddress,tokenId:u256);
+    fn setTokenURI(ref self: TContractState, address:ContractAddress,num:u256,tokenURI:ByteArray,tokenId:u256)->bool;
 }
 
 #[starknet::contract]
 pub mod Manager {
-    use starkpet::manager::IManager;
+    use super::IManager;
     use super::{IERCDispatcher, IERCDispatcherTrait};
     use starknet::{ContractAddress, get_caller_address, get_contract_address};
 
     #[storage]
     struct Storage {
         nft_addresses: LegacyMap<u256,IERCDispatcher>,
-        user_nft: LegacyMap<ContractAddress,Array<(IERCDispatcher,u256)>>,
+        user_nft: LegacyMap<(ContractAddress,ContractAddress),u256>,
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState, nft: ContractAddress) {
-        self.nft_addresses.write(1,IERCDispatcher { contract_address: nft });
+    fn constructor(ref self: ContractState, nft1: ContractAddress,nft2: ContractAddress,nft3: ContractAddress) {
+        self.nft_addresses.write(1,IERCDispatcher { contract_address: nft1 });
+        self.nft_addresses.write(2,IERCDispatcher { contract_address: nft2 });
+        self.nft_addresses.write(3,IERCDispatcher { contract_address: nft2 });
     }
 
     #[abi(embed_v0)]
     impl Manager of super::IManager<ContractState> {
 
+        //returns array of nfts for a particular user
         fn get_nfts(self: @ContractState)->Array<(ContractAddress,u256)>{
             let caller=get_caller_address();
-            let num=self.user_nft.read(caller);
+            let addr1=self.nft_addresses.read(1);
+            let addr2=self.nft_addresses.read(2);
+            let addr3=self.nft_addresses.read(3);
+            let num1=self.user_nft.read((caller,addr1.contract_address));
+            let num2=self.user_nft.read((caller,addr2.contract_address));
+            let num3=self.user_nft.read((caller,addr3.contract_address));
+            let mut arr:Array<(IERCDispatcher,u256)> =ArrayTrait::new();
 
+            arr.append((addr1, num1));
+            arr.append((addr2,num2));
+            arr.append((addr3,num3));
+
+            let length=arr.len();
+            let mut returnarr:Array<(ContractAddress,u256)> =ArrayTrait::new();
+            let mut number=0;
+            while number != length {
+                let (addr,tokenId):(IERCDispatcher,u256) = *arr[number];
+                returnarr.append((addr.contract_address,tokenId));
+                number += 1;
+            };
             
+            return returnarr;
+        }
+        //lets user mint nft with a particular tokenId
+
+        // follow CEI pattern
+        fn mint_nft(ref self: ContractState, num:u256,address: ContractAddress,tokenId:u256){
+            let nft_addr=self.nft_addresses.read(num);//num gets u that which nft u want to mint
             
-            return nft.contract_address;
+            self.user_nft.write((address,nft_addr.contract_address),tokenId);
+            
+            IERCDispatcher{contract_address:nft_addr.contract_address}._mint(address,tokenId);
         }
-        fn mint_nft(ref self: ContractState, num:u256,address: ContractAddress){
-            let addr=self.nft_addresses.read(num);
-            IERCDispatcher{contract_address:addr.contract_address}._mint(address,tokenId);
-        }
-        //sets 
-        fn setTokenURI(ref self: ContractState, address:ContractAddress,tokenURI:ByteArray,tokenId:u256)->bool{
-            if self.user_nft.read(address)!=0 {
-                let num=self.user_nft.read(address);
-                let addr=self.nft_addresses.read(num);
-                let contract_address=addr.contract_address;
-                IERCDispatcher{contract_address}.set_token_uri(tokenId,tokenURI);
+
+        //u need to provide which nft it is 
+        // CEI pattern
+        fn setTokenURI(ref self: ContractState, address:ContractAddress,num:u256,tokenURI:ByteArray,tokenId:u256)->bool{
+                let nft_addr=self.nft_addresses.read(num);//got which nft
+
+                // check if user owns it
+                let mut owner=false;
+                if self.user_nft.read((address,nft_addr.contract_address))!=0{
+                    owner=true;
+                }
+                //if not the owner return 
+                if !owner{
+                    return false;
+                }
+                IERCDispatcher{contract_address: nft_addr.contract_address}.set_token_uri(tokenId,tokenURI);
                 return true;
-            }
-
-            return false;//means user doesnot owns that nft , he needs to mint first
         }
     }
 }
