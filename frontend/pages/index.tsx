@@ -38,10 +38,10 @@ export default function Home() {
         tokenId: 1
       }
     );
-    const { transaction_hash: transferTxHash } =
+    const res =
       await nftContract._mint(mintCallData.calldata);
 
-    const hash = await provider.waitForTransaction(transferTxHash);
+    const hash = await provider.waitForTransaction(res.transaction_hash);
 
     setTxnHash(hash.transaction_hash);
   };
