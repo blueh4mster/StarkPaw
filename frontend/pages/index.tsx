@@ -5,46 +5,18 @@ import {
 import Head from "next/head";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { StarknetWalletConnectors } from "@dynamic-labs/starknet";
-import { Account, Chain, Hex, Transport, WalletClient } from "viem";
-import { useState } from "react";
-import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import { Call, Contract } from "starknet";
+// import { Account, Chain, Hex, Transport, WalletClient } from "viem";
+// import { useState } from "react";
+// import { useRouter } from 'next/navigation'
+// import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+// import { Call, Contract } from "starknet";
 import PetCard from "../components/PetCard";
-import { petChosen } from "@/services/petCard";
+import Minter from "@/components/Minter";
+import petChosen from "@/services/petCard";
 import Sidebar from "@/components/Sidebar";
 import { abi2 } from "../abi";
 
 export default function Home() {
-  const { primaryWallet } = useDynamicContext();
-  const contractAddr = "";
-  const [txnHash, setTxnHash] = useState("");
-
-  if (!primaryWallet) return null;
-
-  const handleClick = async (pet: string) => {
-    const provider = await primaryWallet.connector.getSigner<
-      WalletClient<Transport, Chain, Account>
-    >();
-    if (!provider) return;
-
-    const nftContract = new Contract(
-      abi2.abi,contractAddr,
-      provider as any
-    );
-    const mintCallData: Call = nftContract.populate(
-      "_mint",
-      {
-        recipient: provider.account.address,
-        tokenId: 1
-      }
-    );
-    const res =
-      await nftContract._mint(mintCallData.calldata);
-
-    const hash = await provider.waitForTransaction(res.transaction_hash);
-
-    setTxnHash(hash.transaction_hash);
-  };
   const links = [
     { href: "/", label: "Home" },
     { href: "/petgallery", label: "Pet Gallery" },
@@ -70,30 +42,10 @@ export default function Home() {
           }}
         >
           <DynamicWidget />
-        </DynamicContextProvider>
-        <h1 className="titl">Choose Your Pet!</h1>
 
-        <div style={{ display: "flex", gap: "16px" }}></div>
-        <div className="cardContainer">
-          <PetCard
-            imageSrc="images/dog.png"
-            title="dog"
-            description="cute pet likes hoomans"
-            onClick={(e) => handleClick("dog")}
-          />
-          <PetCard
-            imageSrc="images/cat.jpg"
-            title="cat"
-            description="cute pet hates hoomans"
-            onClick={(e) => handleClick("cat")}
-          />
-          <PetCard
-            imageSrc="images/bunny.jpg"
-            title="bunny"
-            description="cute pet likes carats(carrots)"
-            onClick={(e) => handleClick("bunny")}
-          />
-        </div>
+          <h1 className="titl">Choose Your Pet!</h1>
+          <Minter />
+        </DynamicContextProvider>
       </div>
     </>
   );
