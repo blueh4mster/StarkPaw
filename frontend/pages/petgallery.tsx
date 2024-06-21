@@ -23,13 +23,10 @@ export default function petgallery() {
     { href: "/petgallery", label: "Pet Gallery" },
     { href: "/contact", label: "Contact" },
   ];
-  const userWallet = useUserWallets()[0];
-  const walletAddr = userWallet.address;
-  const isConnected = userWallet.connected;
 
   useEffect(() => {
     const handleFetch = async () => {
-      const p = await fetchPets(walletAddr, isConnected);
+      const p = await fetchPets();
       setPets(p);
     };
     handleFetch();
