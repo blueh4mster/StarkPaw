@@ -4,6 +4,7 @@ import {
 } from "@dynamic-labs/sdk-react-core";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { StarknetWalletConnectors } from "@dynamic-labs/starknet";
+import { useUserWallets } from '@dynamic-labs/sdk-react-core'
 import Sidebar from "@/components/Sidebar";
 import PetNft from "@/components/PetNft";
 import { fetchPets } from "@/services/gallery";
@@ -22,10 +23,13 @@ export default function petgallery() {
     { href: "/petgallery", label: "Pet Gallery" },
     { href: "/contact", label: "Contact" },
   ];
+  const userWallet = useUserWallets()[0];
+  const walletAddr = userWallet.address;
+  const isConnected = userWallet.connected;
 
   useEffect(() => {
     const handleFetch = async () => {
-      const p = await fetchPets();
+      const p = await fetchPets(walletAddr, isConnected);
       setPets(p);
     };
     handleFetch();
@@ -39,7 +43,7 @@ export default function petgallery() {
           theme={"dark"}
           settings={{
             environmentId: "4ab7a405-d8b1-4fe7-97bd-7c6ead2e8f66",
-            walletConnectors: [EthereumWalletConnectors],
+            walletConnectors: [EthereumWalletConnectors, StarknetWalletConnectors],
           }}
         >
           <DynamicWidget />
