@@ -40,7 +40,7 @@ const PetNft = ({
 
     const recipient = primaryWallet.address;
     const hexString = recipient;
-    const address: BigNumberish = BigInt(hexString).toString() + 'n';
+    const address: BigNumberish = BigInt(hexString).toString() + "n";
     // console.log(address);
     const num = petChosen(tracker);
     const uri = uriSelector(num, sel);
@@ -70,6 +70,7 @@ const PetNft = ({
           onClick={() => {
             handleSecond(2);
           }}
+          className={styles.actionButtons}
         >
           feed {tracker}
         </Button>
@@ -77,6 +78,7 @@ const PetNft = ({
           onClick={() => {
             handleSecond(1);
           }}
+          className={styles.actionButtons}
         >
           pet {tracker}
         </Button>
@@ -84,6 +86,7 @@ const PetNft = ({
           onClick={() => {
             handleSecond(3);
           }}
+          className={styles.actionButtons}
         >
           Put {tracker} to sleep
         </Button>

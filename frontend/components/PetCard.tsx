@@ -4,17 +4,18 @@ const PetCard = ({
   imageSrc,
   title,
   description,
-  onClick
+  onClick,
 }: {
   imageSrc: any;
   title: string;
   description: string;
   onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }) => {
-  
   return (
     <div className={styles.card} onClick={onClick}>
-      <img src={imageSrc} alt={title} className={styles.image} id="img1"/>
+      <div className={styles.imageContainer}>
+        <img src={imageSrc} alt={title} className={styles.image} id="img1" />
+      </div>
       <div className={styles.content}>
         <h2 className={styles.title}>{title}</h2>
         <p className={styles.description}>{description}</p>

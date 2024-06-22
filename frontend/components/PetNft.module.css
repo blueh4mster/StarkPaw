@@ -19,11 +19,11 @@
 }
 
 .actionButtons{
-  width : 100px;
+  width : 120px;
   height: 30px;
   margin: 5px;
   border: 5px;
   border-radius: 8px;
   color: rgb(7, 7, 7);
-  background: coral;
+  background: rgb(75, 133, 164);
 }

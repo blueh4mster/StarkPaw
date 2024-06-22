@@ -54,19 +54,19 @@ const Minter = () => {
       <div className="cardContainer">
         <PetCard
           imageSrc="images/dog.jpeg"
-          title="dog"
+          title="Dog"
           description="cute pet likes hoomans"
           onClick={(e) => handleClick("dog")}
         />
         <PetCard
-          imageSrc="images/cat.jpeg"
-          title="cat"
+          imageSrc="images/cat.jpg"
+          title="Cat"
           description="cute pet hates hoomans"
           onClick={(e) => handleClick("cat")}
         />
         <PetCard
           imageSrc="images/bunny.jpeg"
-          title="bunny"
+          title="Bunny"
           description="cute pet likes carats(carrots)"
           onClick={(e) => handleClick("bunny")}
         />

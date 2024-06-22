@@ -1,14 +1,22 @@
-.cardContainer {
-    display: flex;
-    gap: 16px; /* Space between cards */
-    justify-content: center; /* Center the cards horizontally */
-    flex-wrap: wrap; /* Allow the cards to wrap to the next line if needed */
-    padding: 16px; /* Optional: Add some padding around the container */
-  }
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
 
-.titl{
-    text-align: center;
-    color: #60589a;
+.cardContainer {
+  display: flex;
+  gap: 16px; /* Space between cards */
+  justify-content: center; /* Center the cards horizontally */
+  flex-wrap: wrap; /* Allow the cards to wrap to the next line if needed */
+  padding: 16px; /* Optional: Add some padding around the container */
+}
+
+body {
+  background-color:aliceblue;
+}
+
+.titl {
+  text-align: center;
+  color: #02010d;
+  font-size: xxx-large;
+  font-family: 'Irish Grover', cursive;
 }
 
 .mainContent {

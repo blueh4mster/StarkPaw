@@ -22,7 +22,7 @@ export default function Home() {
       <Head>
         <title>StarkPaw</title>
         <meta content="decentralized dynamic NFT pets" name="StarkPaw" />
-        <link href="/favicon.ico" rel="icon" />
+        <link href="/logo.jpg" rel="icon" />
       </Head>
       <Sidebar links={links} />
       <div className="mainContent">
