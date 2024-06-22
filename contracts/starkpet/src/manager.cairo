@@ -1,8 +1,8 @@
 use starknet::ContractAddress;
 
-// class hash: 0x06c606cfeb5a35f2a7de10fcf830aa73f815b72de489730eb15d82bfdb10ea13
-// deployed contract: 0x007764a43ac9eba6cccf9cffc808aa0c14e58bf125cb0a9aa2d640271bc179be
-//deployment transaction: 0x01b2e393e5ab9c628a0380f419e987d29a614926b46a81417f653eaf0de86f2d
+// class hash: 0x03480d50d84bda7bc728c87408df39cc0572aadd4b16ee5833817ff4fc96bd8c
+// deployed contract:0x02978a096d277edf4da2462471f2f117384cf5dcaa37d87a09dcdb06cdbe0631
+//deployment transaction: 0x00cadc608564827c1f014d9605579964ba27b2e0239b9f9450de6dff84ad62a8
 
 #[starknet::interface]
 pub trait IERC<TContractState> {
@@ -17,7 +17,7 @@ pub trait IERC<TContractState> {
 #[starknet::interface]
 pub trait IManager<TContractState> {
     // fn register_user(ref self:TContractState);// the cllaer's address will be registered
-    fn get_nfts(self: @TContractState)->Array<(ContractAddress,u256)>;
+    fn get_nfts(self: @TContractState,caller: ContractAddress)->Array<(ContractAddress,u256)>;
     fn mint_nft(ref self: TContractState, num:u256,address: ContractAddress,tokenId:u256);
     fn setTokenURI(ref self: TContractState, address:ContractAddress,num:u256,tokenURI:ByteArray,tokenId:u256)->bool;
 }
@@ -31,6 +31,7 @@ pub mod Manager {
     #[storage]
     struct Storage {
         nft_addresses: LegacyMap<u256,IERCDispatcher>,
+        #[derive(Hash)]
         user_nft: LegacyMap<(ContractAddress,ContractAddress),u256>,
     }
 
@@ -45,8 +46,8 @@ pub mod Manager {
     impl Manager of super::IManager<ContractState> {
 
         //returns array of nfts for a particular user
-        fn get_nfts(self: @ContractState)->Array<(ContractAddress,u256)>{
-            let caller=get_caller_address();
+        fn get_nfts(self: @ContractState,caller: ContractAddress)->Array<(ContractAddress,u256)>{
+            // let caller=get_caller_address();
             let addr1=self.nft_addresses.read(1);
             let addr2=self.nft_addresses.read(2);
             let addr3=self.nft_addresses.read(3);
@@ -55,16 +56,10 @@ pub mod Manager {
             let num3=self.user_nft.read((caller,addr3.contract_address));
             let mut arr:Array<(IERCDispatcher,u256)> =ArrayTrait::new();
 
-            if num1!=0{
-                arr.append((addr1, num1));
-            }
-            if num2!=0{
-                arr.append((addr2,num2));
-            }
-            if num3!=0{
-                arr.append((addr3,num3));
-            }
-
+            arr.append((addr1,num1));
+            arr.append((addr2,num2));
+            arr.append((addr3,num3));
+        
             let length=arr.len();
             let mut returnarr:Array<(ContractAddress,u256)> =ArrayTrait::new();
             let mut number=0;

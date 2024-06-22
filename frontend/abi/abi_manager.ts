@@ -1,4 +1,4 @@
-//manager address: 0x007764a43ac9eba6cccf9cffc808aa0c14e58bf125cb0a9aa2d640271bc179be
+//manager address: 0x02978a096d277edf4da2462471f2f117384cf5dcaa37d87a09dcdb06cdbe0631
 
 export const abi_manager = [
   {
@@ -59,7 +59,12 @@ export const abi_manager = [
       {
         type: "function",
         name: "get_nfts",
-        inputs: [],
+        inputs: [
+          {
+            name: "caller",
+            type: "core::starknet::contract_address::ContractAddress",
+          },
+        ],
         outputs: [
           {
             type: "core::array::Array::<(core::starknet::contract_address::ContractAddress, core::integer::u256)>",
