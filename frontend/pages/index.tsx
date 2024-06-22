@@ -5,11 +5,6 @@ import {
 import Head from "next/head";
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { StarknetWalletConnectors } from "@dynamic-labs/starknet";
-// import { Account, Chain, Hex, Transport, WalletClient } from "viem";
-// import { useState } from "react";
-// import { useRouter } from 'next/navigation'
-// import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-// import { Call, Contract } from "starknet";
 import PetCard from "../components/PetCard";
 import Minter from "@/components/Minter";
 import petChosen from "@/services/petCard";
