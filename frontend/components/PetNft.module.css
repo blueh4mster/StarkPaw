@@ -4,7 +4,7 @@
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
-  max-width: 500px; /* Add a max-width to the card to limit its size */
+  max-width: 1000px; /* Add a max-width to the card to limit its size */
   margin: 10px;
   flex: 1 0 200px;
 }

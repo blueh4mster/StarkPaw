@@ -25,10 +25,11 @@ const Fetcher = () => {
   const [pets, setPets] = useState<petsI[]>([]);
 
   const handleFetch = async () => {
-    if (!primaryWallet) return null;
-    // await wait(2000); // Wait for 2 seconds
-
-    const provider = await primaryWallet.connector.getSigner<
+    // console.log(primaryWallet);
+    if (primaryWallet === null) return null;
+    // // await wait(2000); // Wait for 2 seconds
+    // console.log(primaryWallet);
+    const provider = await primaryWallet?.connector.getSigner<
       WalletClient<Transport, Chain, Account>
     >();
     // console.log(provider);
@@ -41,7 +42,7 @@ const Fetcher = () => {
       provider as any
     );
 
-    const recipient = primaryWallet.address;
+    const recipient = primaryWallet?.address;
 
     try {
       const nfts = await managerContract.get_nfts(recipient);
@@ -87,7 +88,8 @@ const Fetcher = () => {
             pending_word_len: ur.pending_word_len,
           };
           const uri = stringFromByteArray(byteArray0);
-          console.log(uri);
+          const final_uri = uri.slice(0, uri.length - 1);
+          // console.log(uri);
           // const name = await nftContract.get_name();
           let nam = await nftContract.call("get_name");
           const byteArray = {
@@ -96,25 +98,25 @@ const Fetcher = () => {
             pending_word_len: nam.pending_word_len,
           };
           let name = stringFromByteArray(byteArray);
-          console.log(name);
+          // console.log(name);
           // console.log(nam);
           // console.log(nam.data);
           // console.log(nam.pending_word);
 
           const petData: petsI = {
-            name: "random",
+            name: name,
             nftAddr: phex,
             tokenid: number,
-            uri: "random2",
+            uri: final_uri,
           };
           let p = pets;
           // console.log(p);
-          let isInArray = pets.includes(petData, 0);
+          let isInArray = pets.includes(petData);
           // console.log(isInArray);
           if (!isInArray) {
             p.push(petData);
-            setPets(p);
           }
+          setPets(p);
         }
       });
     } catch (e) {
@@ -123,7 +125,7 @@ const Fetcher = () => {
   };
   useEffect(() => {
     handleFetch();
-  }, [pets, primaryWallet]);
+  }, [primaryWallet]);
   return (
     <>
       <h1 className="titl">Your Pet Nfts!</h1>
