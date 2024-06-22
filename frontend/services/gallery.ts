@@ -1,15 +1,16 @@
-interface pets {
+interface petsI {
+  name: string;
   nftAddr: string;
-  tracker: string;
+  tokenid: number;
   uri: string;
 }
 
-export const fetchPets = async () => {
-  let array: Array<pets> = [];
-  // if (){
-  //     // fetch pet nft address owned by this address from backend
-  //     // fill array by fetching details from backend and making interface
-  //     // return array of these addresses
-  // }
-  return array;
+export const removeDuplicates = (array: petsI[]): petsI[] => {
+  const seen = new Set<string>();
+  return array.filter(item => {
+    const key = `${item.name}-${item.nftAddr}-${item.tokenid}-${item.uri}`;
+    const duplicate = seen.has(key);
+    seen.add(key);
+    return !duplicate;
+  });
 };

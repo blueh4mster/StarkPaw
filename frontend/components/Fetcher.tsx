@@ -11,7 +11,7 @@ import { useEffect } from "react";
 import PetNft from "./PetNft";
 import { MANAGER, nftSelector } from "../constants";
 import { stringFromByteArray } from "@/utils";
-// const BigNumber = require("bignumber.js");
+import { removeDuplicates } from "@/services/gallery";
 
 interface petsI {
   name: string;
@@ -110,13 +110,9 @@ const Fetcher = () => {
             uri: final_uri,
           };
           let p = pets;
-          // console.log(p);
-          let isInArray = pets.includes(petData);
-          // console.log(isInArray);
-          if (!isInArray) {
-            p.push(petData);
-          }
-          setPets(p);
+          p.push(petData);
+          let newP = removeDuplicates(p);
+          setPets(newP);
         }
       });
     } catch (e) {

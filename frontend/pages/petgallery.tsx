@@ -6,10 +6,6 @@ import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { StarknetWalletConnectors } from "@dynamic-labs/starknet";
 import { useUserWallets } from "@dynamic-labs/sdk-react-core";
 import Sidebar from "@/components/Sidebar";
-import PetNft from "@/components/PetNft";
-import { fetchPets } from "@/services/gallery";
-import { useState } from "react";
-import { useEffect } from "react";
 import Fetcher from "@/components/Fetcher";
 
 export default function petgallery() {
