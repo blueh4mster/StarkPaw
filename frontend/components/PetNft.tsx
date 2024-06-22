@@ -9,7 +9,7 @@ const PetNft = ({
 }: {
   nftAddr: string;
   tracker: string;
-  tokenid: Number;
+  tokenid: number;
   url: string;
 }) => {
   const handleFood = () => {

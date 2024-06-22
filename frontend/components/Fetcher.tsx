@@ -9,28 +9,31 @@ import PetNft from "./PetNft";
 
 interface nftInfo {
   nftAddr: string;
-  tokenid: Number;
+  tokenid: number;
 }
 
 interface petsI {
   name: string;
   nftAddr: string;
-  tokenid: Number;
+  tokenid: number;
   uri: string;
 }
 
 const Fetcher = () => {
   const { primaryWallet } = useDynamicContext();
   const contractAddr = "";
-  const [pets, setpets] = useState(Array<petsI>);
+  const [pets, setPets] = useState<petsI[]>([]);
 
-  if (!primaryWallet) return null;
+  console.log(primaryWallet);
 
   useEffect(() => {
     const handleFetch = async () => {
+      if (!primaryWallet) return null;
       const provider = await primaryWallet.connector.getSigner<
         WalletClient<Transport, Chain, Account>
       >();
+
+      console.log(provider);
       if (!provider) return;
 
       const managerContract = new Contract(
@@ -39,8 +42,8 @@ const Fetcher = () => {
         contractAddr,
         provider as any
       );
-      const nfts: Array<nftInfo> = await managerContract.get_nfts();
-      nfts.map(async (nft, i) => {
+      const nfts: nftInfo[] = await managerContract.get_nfts();
+      const promises = nfts.map(async (nft, i) => {
         const nftContract = new Contract(
           //nft contract
           abi2.abi,
@@ -49,18 +52,18 @@ const Fetcher = () => {
         );
         const uri = await nftContract.get_token_uri(nft.tokenid);
         const name = await nftContract.get_name();
-        let pets_tmp = pets;
-        pets_tmp.push({
-          name: name,
+        return {
+          name,
           nftAddr: nft.nftAddr,
           tokenid: nft.tokenid,
-          uri: uri,
-        });
-        setpets(pets_tmp);
+          uri,
+        };
       });
+      const petData = await Promise.all(promises);
+      setPets(petData);
     };
     handleFetch();
-  }, []);
+  }, [primaryWallet]);
   return (
     <>
       <h1 className="titl">Your Pet Nfts!</h1>
