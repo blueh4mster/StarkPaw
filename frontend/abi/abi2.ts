@@ -1,4 +1,4 @@
-//cat abi
+//cat abi 0x0019b58fb2dc0f314dce97a3ff1d841252f8ef9e98135a11c4981dbafb1b23da
 export const abi2 = [
   {
     type: "impl",

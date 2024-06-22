@@ -1,4 +1,4 @@
-//bunny abi
+//bunny abi 0x05a99df4291523865e3de6eee5a10f4a6e24a548cd31aeab19094349e0451dfc
 export const abi3 = [
   {
     type: "impl",

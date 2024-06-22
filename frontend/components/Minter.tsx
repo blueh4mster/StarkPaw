@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { Call, Contract } from "starknet";
-import { abi2 } from "../abi";
+import { abi_manager } from "@/abi/abi_manager";
+import { MANAGER } from "@/constants";
 import PetCard from "./PetCard";
 
 const Minter = () => {
@@ -33,17 +34,21 @@ const Minter = () => {
     >();
     if (!provider) return;
 
+    const recipient = primaryWallet.address;
+
     const nftContract = new Contract(
       //manager contract
-      abi2.abi,
-      contractAddr,
+      abi_manager,
+      MANAGER,
       provider as any
     );
-    const mintCallData: Call = nftContract.populate("mint_nft", {
+    const prams = {
       num: num,
-      recipient: provider.account.address,
+      recipient:
+        "0x6688bc4aa4e318cfc6bc596a7b1ee219135e5a8f09f043bc387e4834df8c3fe",
       tokenId: 1,
-    });
+    };
+    const mintCallData: Call = nftContract.populate("mint_nft", prams);
     const { transaction_hash: txhash } = await nftContract._mint(
       mintCallData.calldata
     );

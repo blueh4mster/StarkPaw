@@ -1,3 +1,5 @@
+// 0x066dc67e8b5328bda69b9ea7dbc56095770270b2ac850453d6af2ff8e8e97f31
+
 export const abi_manager = [
   {
     type: "impl",

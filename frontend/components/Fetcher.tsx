@@ -3,9 +3,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { Call, Contract } from "starknet";
-import { abi2 } from "../abi";
+import { abi_manager } from "@/abi/abi_manager";
+import { abi1 } from "@/abi/abi1";
+import { abi2 } from "@/abi/abi2";
+import { abi3 } from "@/abi/abi3";
 import { useEffect } from "react";
 import PetNft from "./PetNft";
+import { DOG, CAT, BUNNY, MANAGER, nftSelector } from "../constants";
 
 interface nftInfo {
   nftAddr: string;
@@ -38,15 +42,28 @@ const Fetcher = () => {
 
       const managerContract = new Contract(
         //manager contract
-        abi2.abi,
+        abi_manager,
         contractAddr,
         provider as any
       );
       const nfts: nftInfo[] = await managerContract.get_nfts();
       const promises = nfts.map(async (nft, i) => {
+        const type = nftSelector(nft.nftAddr);
+        let abi = abi1;
+        switch (type) {
+          case 1:
+            abi = abi1;
+            break;
+          case 2:
+            abi = abi2;
+            break;
+          case 3:
+            abi = abi3;
+            break;
+        }
         const nftContract = new Contract(
           //nft contract
-          abi2.abi,
+          abi,
           nft.nftAddr,
           provider as any
         );
