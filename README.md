@@ -6,13 +6,16 @@ StarkPaw is an innovative on-chain pet game where you can interact with your pet
 
 The StarkPaw project is built on the StarkNet ecosystem, leveraging the Cairo programming language and the unique capabilities of dynamic NFTs. We implemented a custom dynamic NFT contract as OpenZeppelin does not currently provide one. The decentralized application (dApp) interface was developed using Next.js, and it integrates Dynamic's robust authentication system for secure user interactions.
 
-### Technologies Used:
+## Dynamic NFTs
 
-- **StarkNet:** For scalability and efficiency.
-- **Cairo:** For writing smart contracts.
-- **Dynamic NFTs:** To enable evolving digital assets.
-- **Next.js:** For building the frontend interface.
-- **Dynamic Authentication:** For secure user management.
+Dynamic NFTs (dNFTs) are non-fungible tokens that can change their properties or metadata over time or in response to external conditions. Unlike static NFTs, which remain the same, dynamic NFTs can evolve, making them suitable for various applications requiring real-time updates or conditional changes.
+
+Key Features:
+
+- **Mutable Metadata**: Metadata can be updated post-minting, including images, descriptions, and attributes.
+- **External Triggers**: Respond to external events or data feeds (oracles), such as in-game progress affecting an NFT's stats.
+- **Smart Contract Logic**: Updates follow predefined rules in smart contracts.
+- **Interactivity**: Users can interact with dNFTs to influence their attributes, ideal for evolving digital art, collectibles, and virtual assets.
 
 ## Importance of StarkNet
 

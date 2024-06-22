@@ -1,8 +1,8 @@
 use starknet::ContractAddress;
 
-// class hash:0x0407619e50ea925ba71ae5b0cf134cc0f1c857a21ce19ad3616199a8fa3341ba
-// deployed contract: 0x066dc67e8b5328bda69b9ea7dbc56095770270b2ac850453d6af2ff8e8e97f31
-//deployment transaction: 0x046562bec5cd249cc8a98cf0fb02c9f5b9b0bb498bc7694c8d421fb01ba23e13
+// class hash: 0x06c606cfeb5a35f2a7de10fcf830aa73f815b72de489730eb15d82bfdb10ea13
+// deployed contract: 0x007764a43ac9eba6cccf9cffc808aa0c14e58bf125cb0a9aa2d640271bc179be
+//deployment transaction: 0x01b2e393e5ab9c628a0380f419e987d29a614926b46a81417f653eaf0de86f2d
 
 #[starknet::interface]
 pub trait IERC<TContractState> {
@@ -38,7 +38,7 @@ pub mod Manager {
     fn constructor(ref self: ContractState, nft1: ContractAddress,nft2: ContractAddress,nft3: ContractAddress) {
         self.nft_addresses.write(1,IERCDispatcher { contract_address: nft1 });
         self.nft_addresses.write(2,IERCDispatcher { contract_address: nft2 });
-        self.nft_addresses.write(3,IERCDispatcher { contract_address: nft2 });
+        self.nft_addresses.write(3,IERCDispatcher { contract_address: nft3 });
     }
 
     #[abi(embed_v0)]
@@ -55,9 +55,15 @@ pub mod Manager {
             let num3=self.user_nft.read((caller,addr3.contract_address));
             let mut arr:Array<(IERCDispatcher,u256)> =ArrayTrait::new();
 
-            arr.append((addr1, num1));
-            arr.append((addr2,num2));
-            arr.append((addr3,num3));
+            if num1!=0{
+                arr.append((addr1, num1));
+            }
+            if num2!=0{
+                arr.append((addr2,num2));
+            }
+            if num3!=0{
+                arr.append((addr3,num3));
+            }
 
             let length=arr.len();
             let mut returnarr:Array<(ContractAddress,u256)> =ArrayTrait::new();
