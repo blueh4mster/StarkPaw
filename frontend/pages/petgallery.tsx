@@ -39,12 +39,6 @@ export default function petgallery() {
           }}
         >
           <DynamicWidget />
-
-          {/* <div style={{ display: "flex", gap: "16px" }}></div> */}
-          {/* {pets !== null &&
-          pets.map((pet, i) => (
-            <PetNft nftAddr={pet.nftAddr} tracker={pet.tracker} url={pet.uri} />
-          ))} */}
           <Fetcher />
         </DynamicContextProvider>
       </div>

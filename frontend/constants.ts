@@ -1,3 +1,5 @@
+// 0x19b58fb2dc0f314dce97a3ff1d841252f8ef9e98135a11c4981dbafb1b23da
+
 export const DOG =
   "0x070d2b81433a04a24ea314fb338b6765685bf04c6feda53fc7ff41e8bdb3ab14";
 export const CAT =

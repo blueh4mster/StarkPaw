@@ -44,8 +44,7 @@ const Minter = () => {
     );
     const prams: RawArgsObject = {
       num: num,
-      address:
-        "0x6688bc4aa4e318cfc6bc596a7b1ee219135e5a8f09f043bc387e4834df8c3fe",
+      address: recipient,
       tokenId: 1,
     };
     const mintCallData = nftContract.populate("mint_nft", prams);

@@ -10,11 +10,7 @@ import { abi3 } from "@/abi/abi3";
 import { useEffect } from "react";
 import PetNft from "./PetNft";
 import { DOG, CAT, BUNNY, MANAGER, nftSelector } from "../constants";
-
-interface nftInfo {
-  nftAddr: string;
-  tokenid: number;
-}
+const BigNumber = require("bignumber.js");
 
 interface petsI {
   name: string;
@@ -43,12 +39,24 @@ const Fetcher = () => {
       const managerContract = new Contract(
         //manager contract
         abi_manager,
-        contractAddr,
+        MANAGER,
         provider as any
       );
-      const nfts: nftInfo[] = await managerContract.get_nfts();
+      for (let index = 0; index < 10; index++) {}
+
+      const nfts = await managerContract.get_nfts();
+
+      console.log(nfts);
       const promises = nfts.map(async (nft, i) => {
-        const type = nftSelector(nft.nftAddr);
+        let addr = nft[0];
+        let hexValue = addr.toString(16);
+
+        const targetLength = 64; // 252 bits = 63 hex characters
+        const zeroesNeeded = targetLength - hexValue.length;
+        const phex = "0x" + "0".repeat(zeroesNeeded) + hexValue;
+
+        const type = nftSelector(phex);
+        console.log(type);
         let abi = abi1;
         switch (type) {
           case 1:
@@ -61,13 +69,15 @@ const Fetcher = () => {
             abi = abi3;
             break;
         }
+
         const nftContract = new Contract(
           //nft contract
           abi,
-          nft.nftAddr,
+          phex,
           provider as any
         );
-        const uri = await nftContract.get_token_uri(nft.tokenid);
+        console.log(nftContract);
+        const uri = await nftContract.get_token_uri(nft[1]);
         const name = await nftContract.get_name();
         return {
           name,
