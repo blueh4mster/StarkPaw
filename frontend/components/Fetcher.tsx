@@ -21,7 +21,6 @@ interface petsI {
 
 const Fetcher = () => {
   const { primaryWallet } = useDynamicContext();
-  const contractAddr = "";
   const [pets, setPets] = useState<petsI[]>([]);
 
   console.log(primaryWallet);

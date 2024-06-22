@@ -6,6 +6,7 @@ import { Call, Contract, RawArgsObject } from "starknet";
 import { abi_manager } from "@/abi/abi_manager";
 import { MANAGER } from "@/constants";
 import PetCard from "./PetCard";
+import petChosen from "@/services/petCard";
 
 const Minter = () => {
   const { primaryWallet } = useDynamicContext();
@@ -17,18 +18,7 @@ const Minter = () => {
   if (!primaryWallet) return null;
 
   const handleClick = async (pet: string) => {
-    let num = 0;
-    switch (pet) {
-      case "dog":
-        num = 1;
-        break;
-      case "cat":
-        num = 2;
-        break;
-      case "bunny":
-        num = 3;
-        break;
-    }
+    const num = petChosen(pet);
     const provider = await primaryWallet.connector.getSigner<
       WalletClient<Transport, Chain, Account>
     >();
@@ -47,12 +37,15 @@ const Minter = () => {
       address: recipient,
       tokenId: 1,
     };
-    const mintCallData = nftContract.populate("mint_nft", prams);
-    const res = await nftContract.mint_nft(mintCallData.calldata);
-
-    const hash = await provider.waitForTransaction(res.transaction_hash);
-    setTxnHash(hash.transaction_hash);
-    setMinted(true);
+    try {
+      const mintCallData = nftContract.populate("mint_nft", prams);
+      const res = await nftContract.mint_nft(mintCallData.calldata);
+      const hash = await provider.waitForTransaction(res.transaction_hash);
+      setTxnHash(hash.transaction_hash);
+      setMinted(true);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
