@@ -10,7 +10,8 @@ import { abi3 } from "@/abi/abi3";
 import { useEffect } from "react";
 import PetNft from "./PetNft";
 import { MANAGER, nftSelector } from "../constants";
-const BigNumber = require("bignumber.js");
+import { stringFromByteArray } from "@/utils";
+// const BigNumber = require("bignumber.js");
 
 interface petsI {
   name: string;
@@ -18,30 +19,36 @@ interface petsI {
   tokenid: number;
   uri: string;
 }
-
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const Fetcher = () => {
   const { primaryWallet } = useDynamicContext();
   const [pets, setPets] = useState<petsI[]>([]);
+
   const handleFetch = async () => {
     if (!primaryWallet) return null;
+    // await wait(2000); // Wait for 2 seconds
+
     const provider = await primaryWallet.connector.getSigner<
       WalletClient<Transport, Chain, Account>
     >();
-
-    console.log(provider);
+    // console.log(provider);
     if (!provider) return;
-    const recipient = primaryWallet.address;
+
     const managerContract = new Contract(
       //manager contract
       abi_manager,
       MANAGER,
       provider as any
     );
+
+    const recipient = primaryWallet.address;
+
     try {
       const nfts = await managerContract.get_nfts(recipient);
 
-      console.log(nfts);
-      const promises = nfts.map(async (nft, i) => {
+      // console.log(nfts);
+
+      const promises = nfts.map(async (nft) => {
         let bigNumberStr = nft[1].toString();
         let number = Number(bigNumberStr);
         if (number !== 0) {
@@ -72,8 +79,28 @@ const Fetcher = () => {
             phex,
             provider as any
           );
-          const uri = await nftContract.get_token_uri(number);
-          const name = await nftContract.get_name();
+          // const uri = await nftContract.call("get_token_uri", 6n);
+          const ur = await nftContract.get_token_uri(number);
+          const byteArray0 = {
+            data: ur.data,
+            pending_word: ur.pending_word,
+            pending_word_len: ur.pending_word_len,
+          };
+          const uri = stringFromByteArray(byteArray0);
+          console.log(uri);
+          // const name = await nftContract.get_name();
+          let nam = await nftContract.call("get_name");
+          const byteArray = {
+            data: nam.data,
+            pending_word: nam.pending_word,
+            pending_word_len: nam.pending_word_len,
+          };
+          let name = stringFromByteArray(byteArray);
+          console.log(name);
+          // console.log(nam);
+          // console.log(nam.data);
+          // console.log(nam.pending_word);
+
           const petData: petsI = {
             name: "random",
             nftAddr: phex,
@@ -81,9 +108,13 @@ const Fetcher = () => {
             uri: "random2",
           };
           let p = pets;
-          p.push(petData);
-          console.log(p);
-          setPets(p);
+          // console.log(p);
+          let isInArray = pets.includes(petData, 0);
+          // console.log(isInArray);
+          if (!isInArray) {
+            p.push(petData);
+            setPets(p);
+          }
         }
       });
     } catch (e) {
@@ -91,9 +122,8 @@ const Fetcher = () => {
     }
   };
   useEffect(() => {
-
     handleFetch();
-  }, [primaryWallet]);
+  }, [pets, primaryWallet]);
   return (
     <>
       <h1 className="titl">Your Pet Nfts!</h1>

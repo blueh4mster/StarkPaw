@@ -35,7 +35,7 @@ const Minter = () => {
     const prams: RawArgsObject = {
       num: num,
       address: recipient,
-      tokenId: 5,
+      tokenId: 6,
     };
     try {
       const mintCallData = nftContract.populate("mint_nft", prams);
