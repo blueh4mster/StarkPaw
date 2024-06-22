@@ -1,5 +1,9 @@
 use starknet::ContractAddress;
 
+// class hash:0x0407619e50ea925ba71ae5b0cf134cc0f1c857a21ce19ad3616199a8fa3341ba
+// deployed contract: 0x066dc67e8b5328bda69b9ea7dbc56095770270b2ac850453d6af2ff8e8e97f31
+//deployment transaction: 0x046562bec5cd249cc8a98cf0fb02c9f5b9b0bb498bc7694c8d421fb01ba23e13
+
 #[starknet::interface]
 pub trait IERC<TContractState> {
     fn get_name(self: @TContractState) -> ByteArray;
