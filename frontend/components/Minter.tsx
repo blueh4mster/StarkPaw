@@ -2,7 +2,7 @@ import { Account, Chain, Hex, Transport, WalletClient } from "viem";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import { Call, Contract } from "starknet";
+import { Call, Contract, RawArgsObject } from "starknet";
 import { abi_manager } from "@/abi/abi_manager";
 import { MANAGER } from "@/constants";
 import PetCard from "./PetCard";
@@ -42,18 +42,16 @@ const Minter = () => {
       MANAGER,
       provider as any
     );
-    const prams = {
+    const prams: RawArgsObject = {
       num: num,
-      recipient:
+      address:
         "0x6688bc4aa4e318cfc6bc596a7b1ee219135e5a8f09f043bc387e4834df8c3fe",
       tokenId: 1,
     };
-    const mintCallData: Call = nftContract.populate("mint_nft", prams);
-    const { transaction_hash: txhash } = await nftContract._mint(
-      mintCallData.calldata
-    );
+    const mintCallData = nftContract.populate("mint_nft", prams);
+    const res = await nftContract.mint_nft(mintCallData.calldata);
 
-    const hash = await provider.waitForTransaction(txhash);
+    const hash = await provider.waitForTransaction(res.transaction_hash);
     setTxnHash(hash.transaction_hash);
     setMinted(true);
   };
