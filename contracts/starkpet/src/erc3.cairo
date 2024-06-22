@@ -1,8 +1,8 @@
 use starknet::ContractAddress;
 
-// class hash:0x07ce0a20b6fbc3599f2a11bbbe88a9b700604f8fc0f27e5d427604741037cb58
-// deployed contract: 0x03532ef57ad605a429951b717c106aa508d5d0ec7b2e8b0d1ee62fd824a354a8
-//deployment transaction: 0x02d6f73d9a160f0c1168f39dca4919e89606ed37baa9c595308fce4465d8bb0b
+// class hash: 0x01a2e223092b37a630f59d36c12899be2bd53baa657c7841302b81c835337330
+// deployed contract: 0x05a99df4291523865e3de6eee5a10f4a6e24a548cd31aeab19094349e0451dfc
+//deployment transaction: 0x04e22f57c8ecfb212a4a6a6b1b83e5f26818de977c251e4e7a3bb34e0bf54a2b
 #[starknet::interface]
 pub trait IERC<TContractState> {
     fn get_name(self: @TContractState) -> ByteArray;
@@ -26,6 +26,7 @@ mod ERC{
 
     #[storage]
     struct Storage {
+        called: bool,
         tokenURIs: LegacyMap<u256,ByteArray>,
         #[substorage(v0)]
         erc721: ERC721Component::Storage,
@@ -50,7 +51,8 @@ mod ERC{
     // ,name:ByteArray, symbol:ByteArray
     #[constructor]
     fn constructor(ref self: ContractState) {
-        self.erc721.initializer("dog", "DOG","http");
+        self.erc721.initializer("bunny", "BUNNY","https://cb2397504e2e55d5db11f18ca2c29f7a.ipfscdn.io/ipfs/bafybeifz6dmjqvk2d4cwzds6owopmtbiry4nyrxan7qqayeyqmjf4f4pfq/");
+        self.called.write(false);
     }
     #[abi(embed_v0)]
     impl ERC of super::IERC<ContractState> {
@@ -64,7 +66,9 @@ mod ERC{
         fn get_token_uri(self:@ContractState,tokenId:u256)->ByteArray{
             let mut arr=self.erc721.tokenURI(tokenId);
             let  brr= self.tokenURIs.read(tokenId);
-            arr.append(@brr);
+            if self.called.read() {
+                return brr;
+            }
             arr
         }
     
@@ -76,6 +80,7 @@ mod ERC{
             self.erc721.mint(recipient, tokenId);
         }
         fn set_token_uri(ref self: ContractState, tokenId: u256, tokenURI: ByteArray){
+            self.called.write(true);
             self.tokenURIs.write(tokenId, tokenURI);
         }
     }

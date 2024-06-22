@@ -66,8 +66,8 @@ pub mod Manager {
             
             return returnarr;
         }
-        //lets user mint nft with a particular tokenId
 
+        //lets user mint nft with a particular tokenId
         // follow CEI pattern
         fn mint_nft(ref self: ContractState, num:u256,address: ContractAddress,tokenId:u256){
             let nft_addr=self.nft_addresses.read(num);//num gets u that which nft u want to mint

@@ -1,2 +1,4 @@
 mod manager;
-mod erc;
+mod erc1;
+mod erc2;
+mod erc3;
