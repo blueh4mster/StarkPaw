@@ -12,11 +12,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Fetcher from "@/components/Fetcher";
 
-interface petsI {
-  nftAddr: string;
-  tokenid: Number;
-  uri: string;
-}
 export default function petgallery() {
   const links = [
     { href: "/", label: "Home" },

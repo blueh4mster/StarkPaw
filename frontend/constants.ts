@@ -7,7 +7,7 @@ export const CAT =
 export const BUNNY =
   "0x05a99df4291523865e3de6eee5a10f4a6e24a548cd31aeab19094349e0451dfc";
 export const MANAGER =
-  "0x007764a43ac9eba6cccf9cffc808aa0c14e58bf125cb0a9aa2d640271bc179be";
+  "0x02978a096d277edf4da2462471f2f117384cf5dcaa37d87a09dcdb06cdbe0631";
 
 export const nftSelector = (addr: string) => {
   switch (addr) {

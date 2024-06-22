@@ -62,7 +62,8 @@ const PetNft = ({
   };
   return (
     <div className={styles.card}>
-      <a href={url}>{nftAddr}</a>
+      <div>address: {nftAddr}</div>
+      <div>uri: {url}</div>
       <div>tokenId: {tokenid.toString()}</div>
       <div className={styles.actions}>
         <Button
