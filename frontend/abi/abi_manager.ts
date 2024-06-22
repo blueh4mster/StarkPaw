@@ -1,4 +1,4 @@
-// 0x066dc67e8b5328bda69b9ea7dbc56095770270b2ac850453d6af2ff8e8e97f31
+//manager address: 0x007764a43ac9eba6cccf9cffc808aa0c14e58bf125cb0a9aa2d640271bc179be
 
 export const abi_manager = [
   {
