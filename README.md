@@ -17,6 +17,10 @@ Key Features:
 - **Smart Contract Logic**: Updates follow predefined rules in smart contracts.
 - **Interactivity**: Users can interact with dNFTs to influence their attributes, ideal for evolving digital art, collectibles, and virtual assets.
 
+## Architecture diagram
+
+![Architecture](contracts/assets/architecture.png)
+
 ## Importance of StarkNet
 
 Dynamic NFTs require frequent state changes, which can be prohibitively expensive and slow on Layer 1 (L1) blockchains. StarkNet, a decentralized and permissionless zk-rollup, is specifically designed to support applications like StarkPaw. It provides several critical benefits:
@@ -30,7 +34,7 @@ Dynamic NFTs require frequent state changes, which can be prohibitively expensiv
 
 The following are the smart contract addresses deployed on StarkNet Sepolia for StarkPaw:
 
-1. **Manager:** : 0x066dc67e8b5328bda69b9ea7dbc56095770270b2ac850453d6af2ff8e8e97f31
+1. **Manager:** : 0x02978a096d277edf4da2462471f2f117384cf5dcaa37d87a09dcdb06cdbe0631
 2. **Dog NFT:** : 0x070d2b81433a04a24ea314fb338b6765685bf04c6feda53fc7ff41e8bdb3ab14
 3. **Cat NFT:** : 0x0019b58fb2dc0f314dce97a3ff1d841252f8ef9e98135a11c4981dbafb1b23da
 4. **Bunny NFT:** : 0x05a99df4291523865e3de6eee5a10f4a6e24a548cd31aeab19094349e0451dfc
