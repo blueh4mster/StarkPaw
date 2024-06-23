@@ -7,7 +7,7 @@ import { abi_manager } from "@/abi/abi_manager";
 import petChosen from "@/services/petCard";
 import { MANAGER } from "../constants";
 import { RawArgsObject } from "starknet";
-import { uriSelector } from "@/uri";
+import { uriSelector } from "@/utils";
 import { byteArrayFromString } from "@/utils";
 
 const PetNft = ({

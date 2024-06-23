@@ -7,6 +7,7 @@ import { abi_manager } from "@/abi/abi_manager";
 import { MANAGER } from "@/constants";
 import PetCard from "./PetCard";
 import petChosen from "@/services/petCard";
+import styles from "./PetNft.module.css";
 
 const Minter = () => {
   const { primaryWallet } = useDynamicContext();
@@ -72,7 +73,11 @@ const Minter = () => {
         />
       </div>
       {minted === true && (
-        <button type="button" onClick={() => router.push("/petgallery")}>
+        <button
+          type="button"
+          onClick={() => router.push("/petgallery")}
+          className={styles.actionButtons}
+        >
           view minted pet nft
         </button>
       )}
