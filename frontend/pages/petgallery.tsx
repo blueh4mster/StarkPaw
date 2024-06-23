@@ -7,20 +7,21 @@ import { StarknetWalletConnectors } from "@dynamic-labs/starknet";
 import { useUserWallets } from "@dynamic-labs/sdk-react-core";
 import Sidebar from "@/components/Sidebar";
 import Fetcher from "@/components/Fetcher";
+import Header from "@/components/Header";
 
 export default function petgallery() {
   const links = [
-    { href: "/", label: "Home" },
-    { href: "/petgallery", label: "Pet Gallery" },
-    { href: "/contact", label: "Contact" },
+    { href: "/", label: "   Home" },
+    { href: "/petgallery", label: "   Pet Gallery" },
+    { href: "/contact", label: "    Contact" },
   ];
 
   return (
     <>
+      <Header />
       <Sidebar links={links} />
       <div className="mainContent">
         <DynamicContextProvider
-          theme={"dark"}
           settings={{
             environmentId: "4ab7a405-d8b1-4fe7-97bd-7c6ead2e8f66",
             walletConnectors: [
@@ -29,7 +30,6 @@ export default function petgallery() {
             ],
           }}
         >
-          <DynamicWidget />
           <Fetcher />
         </DynamicContextProvider>
       </div>

@@ -10,12 +10,13 @@ import Minter from "@/components/Minter";
 import petChosen from "@/services/petCard";
 import Sidebar from "@/components/Sidebar";
 import { abi2 } from "../abi";
+import Header from "@/components/Header";
 
 export default function Home() {
   const links = [
-    { href: "/", label: "Home" },
-    { href: "/petgallery", label: "Pet Gallery" },
-    { href: "/contact", label: "Contact" },
+    { href: "/", label: "   Home" },
+    { href: "/petgallery", label: "   Pet Gallery" },
+    { href: "/contact", label: "   Contact" },
   ];
   return (
     <>
@@ -24,24 +25,23 @@ export default function Home() {
         <meta content="decentralized dynamic NFT pets" name="StarkPaw" />
         <link href="/logo.jpg" rel="icon" />
       </Head>
-      <Sidebar links={links} />
-      <div className="mainContent">
-        <DynamicContextProvider
-          theme={"dark"}
-          settings={{
-            environmentId: "4ab7a405-d8b1-4fe7-97bd-7c6ead2e8f66",
-            walletConnectors: [
-              EthereumWalletConnectors,
-              StarknetWalletConnectors,
-            ],
-          }}
-        >
-          <DynamicWidget />
+      <Header />
+      <DynamicContextProvider
+        settings={{
+          environmentId: "4ab7a405-d8b1-4fe7-97bd-7c6ead2e8f66",
+          walletConnectors: [
+            EthereumWalletConnectors,
+            StarknetWalletConnectors,
+          ],
+        }}
+      >
+        <Sidebar links={links} />
 
+        <div className="mainContent">
           <h1 className="titl">Choose Your Pet!</h1>
           <Minter />
-        </DynamicContextProvider>
-      </div>
+        </div>
+      </DynamicContextProvider>
     </>
   );
 }

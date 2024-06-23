@@ -3,9 +3,8 @@
   height: 100vh;
   background-color: #6ea9da; 
   color: #010f13;
-  padding: 20px;
   position: fixed;
-  top: 0;
+  top: 78px;
   left: 0;
   border-right: 2px solid #070101; /* Add a border to the right side of the sidebar */
 }
@@ -16,7 +15,12 @@
 }
 
 .navItem {
-  margin-bottom: 15px;
+  height: 50px;
+  text-align: center;
+}
+
+.navItem:hover{
+  background-color: rgb(186, 221, 252);
 }
 
 .navLink {
@@ -24,9 +28,5 @@
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: x-large;
   text-decoration: none;
-  font-size: 1.2rem;
-}
 
-.navLink:hover {
-  text-decoration: underline;
 }

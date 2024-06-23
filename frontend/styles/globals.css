@@ -24,3 +24,11 @@ body {
   padding: 0px;
   flex: 1;
 }
+
+.dynamic-shadow-dom {
+  width: 220px;
+  padding-inline-end: 20px;
+  --dynamic-connect-button-background: #000;
+  --dynamic-connect-button-color: #f5f3f3;
+  --dynamic-text-primary: #110a0a;
+}
