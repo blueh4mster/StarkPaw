@@ -13,10 +13,12 @@ import Header from "@/components/Header";
 
 export default function Home() {
   const links = [
-    { href: "/", label: "   Home" },
-    { href: "/petgallery", label: "   Pet Gallery" },
-    { href: "/contact", label: "   Contact" },
+    { href: "/", label: "Home" },
+    { href: "/petgallery", label: "Pet Gallery" },
+    { href: "/contact", label: "Contact" },
   ];
+
+  const links2 = [{ href: "/", label: "StarkPaw" }];
   return (
     <>
       <Head>
@@ -24,7 +26,7 @@ export default function Home() {
         <meta content="decentralized dynamic NFT pets" name="StarkPaw" />
         <link href="/logo.jpg" rel="icon" />
       </Head>
-      <Header />
+      <Header links={links2}/>
       <DynamicContextProvider
         settings={{
           environmentId: "4ab7a405-d8b1-4fe7-97bd-7c6ead2e8f66",

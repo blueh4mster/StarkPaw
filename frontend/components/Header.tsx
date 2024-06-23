@@ -7,12 +7,20 @@ import {
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 import { StarknetWalletConnectors } from "@dynamic-labs/starknet";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  links: { href: string; label: string }[];
+}
+
+const Header: React.FC<HeaderProps> = ({ links }) => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
         <img src="images/star.svg" alt="Site Logo" />
-        <h3>StarkPaw</h3>
+        {links.map((link, index) => (
+          <a href={link.href} className={styles.tit}>
+            {link.label}
+          </a>
+        ))}
       </div>
       <DynamicContextProvider
         settings={{

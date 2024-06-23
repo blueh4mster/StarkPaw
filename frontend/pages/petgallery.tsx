@@ -16,9 +16,11 @@ export default function petgallery() {
     { href: "/contact", label: "    Contact" },
   ];
 
+  const links2 = [{ href: "/", label: "StarkPaw" }];
+
   return (
     <>
-      <Header />
+      <Header links={links2} />
       <Sidebar links={links} />
       <div className="mainContent">
         <DynamicContextProvider

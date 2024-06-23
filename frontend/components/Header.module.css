@@ -15,13 +15,16 @@
 }
 
 .logo img {
-  padding-top: 15px;
+  padding-top: 8px;
   height: 40px; /* Adjust the logo size to fit within the header */
   max-height: 100%;
   width: 40px; /* Maintain aspect ratio */
 }
 
-.logo h3 {
+.tit {
+  padding-top: 10px;
+  color: white;
   font-size: x-large;
   font-family: "Irish Grover", cursive;
+  text-decoration: none;
 }
