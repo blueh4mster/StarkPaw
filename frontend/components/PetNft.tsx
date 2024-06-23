@@ -1,5 +1,5 @@
 import styles from "./PetNft.module.css";
-import { Button } from "@chakra-ui/react";
+import { Button, color } from "@chakra-ui/react";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { BigNumberish, Call, Contract } from "starknet";
 import { Account, Chain, Hex, Transport, WalletClient } from "viem";
@@ -61,37 +61,44 @@ const PetNft = ({
     }
   };
   return (
-    <div className={styles.card}>
-      <div>address: {nftAddr}</div>
-      <a href={url}>{url}</a>
-      <div>tokenId: {tokenid.toString()}</div>
-      <div className={styles.actions}>
-        <Button
-          onClick={() => {
-            handleSecond(2);
-          }}
-          className={styles.actionButtons}
-        >
-          feed {tracker}
-        </Button>
-        <Button
-          onClick={() => {
-            handleSecond(1);
-          }}
-          className={styles.actionButtons}
-        >
-          pet {tracker}
-        </Button>
-        <Button
-          onClick={() => {
-            handleSecond(3);
-          }}
-          className={styles.actionButtons}
-        >
-          Put {tracker} to sleep
-        </Button>
+    <>
+      <div className={styles.card}>
+        <span className={styles.headings}> NFT Address: </span>
+        <span className={styles.normals}>{nftAddr}</span>
+        <div />
+        <span className={styles.headings}>URI: </span>
+        <a href={url}>{url}</a>
+        <div />
+        <span className={styles.headings}>Token Id: </span>
+        <span className={styles.normals}>{tokenid.toString()}</span>
+        <div className={styles.actions}>
+          <Button
+            onClick={() => {
+              handleSecond(2);
+            }}
+            className={styles.actionButtons}
+          >
+            feed {tracker}
+          </Button>
+          <Button
+            onClick={() => {
+              handleSecond(1);
+            }}
+            className={styles.actionButtons}
+          >
+            pet {tracker}
+          </Button>
+          <Button
+            onClick={() => {
+              handleSecond(3);
+            }}
+            className={styles.actionButtons}
+          >
+            Put {tracker} to sleep
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

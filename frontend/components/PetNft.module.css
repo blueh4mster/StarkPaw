@@ -8,6 +8,8 @@
   margin: 10px;
   flex: 1 0 200px;
   background-color: white;
+  text-align: left;
+  padding: 5px;
 }
 
 .card:hover {
@@ -31,4 +33,13 @@
 
 .actionButtons:hover {
   background-color: #cdcbf2;
+}
+
+.headings{
+  color: #180d5b;
+  font-weight: bold;
+}
+
+.normals{
+  color: #180d5b;
 }
