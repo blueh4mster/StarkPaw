@@ -9,7 +9,6 @@ import PetCard from "../components/PetCard";
 import Minter from "@/components/Minter";
 import petChosen from "@/services/petCard";
 import Sidebar from "@/components/Sidebar";
-import { abi2 } from "../abi";
 import Header from "@/components/Header";
 
 export default function Home() {

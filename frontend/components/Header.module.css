@@ -4,10 +4,10 @@
   justify-content: space-between;
   align-items: center;
   height: 50px;
-  padding: 10px 20px;
-  background-color: #031a31;
+  padding-left: 10px;
+  background-color: #000235;
   color: #ecf0f1;
-  border-bottom: 2px solid #ddd;
+  z-index: 1000;
 }
 .logo {
   display: flex;

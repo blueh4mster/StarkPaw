@@ -9,18 +9,18 @@
 }
 
 body {
-  background-color:aliceblue;
+  background-color:#f1f2f5;
 }
 
 .titl {
   text-align: center;
-  color: #02010d;
+  color: #180d5b;
   font-size: xxx-large;
   font-family: 'Irish Grover', cursive;
 }
 
 .mainContent {
-  margin-left: 282px; /* Same as sidebar width */
+  margin-left: 230px; /* Same as sidebar width */
   padding: 0px;
   flex: 1;
 }
